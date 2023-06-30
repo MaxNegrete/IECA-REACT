@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 1 curso de React</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script>
+        const root=ReactDOM.createRoot(document.getElementById("root"));
+  
+        const todoList=[];
+
+        const submit = (event)=>{
+            event.preventDefault();
+            todoList.push(
+                React.createElement('li',{key: event.target.todo.value},event.target.todo.value)
+            )
+            const ul=React.createElement("ul",null,todoList);
+            event.target.todo.value="";
+            event.target.todo.focus();
+
+            root.render([form,ul]);
+        }
+        const form = React.createElement('form',{onSubmit:submit},[
+            React.createElement('input',{type:"text",name:"todo"}),
+            React.createElement('button',{type:"submit"},'Agregar')
+        ]);
+        root.render(form);
+    </script>
+</body>
+</html>
