@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión 3 - Practica 1</title>
+</head>
+<body>
+    
+    <div id="root"></div>
+    <!-- React Library & React DOM -->
+    <!-- React library & ReactDOM (Development Version)-->
+    <script src="https://unpkg.com/react@18/umd/react.development.js">
+    </script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">
+    </script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js">
+    </script>
+    <script type="text/babel">
+        const productos = [
+            {
+                nombre:"galletas",
+                descripcion:"galletas de chocolate",
+                precio:20.5
+            },
+            {
+                nombre:"refresco",
+                descripcion:"refresco de limón",
+                precio:18.0
+            },
+            {
+                nombre:"papas",
+                descripcion:"papas con chile",
+                precio:21.5
+            }
+        ];
+        const ListaProductos=()=>(
+            <div>
+                <h1>Mi lista de productos</h1>
+                <Form />
+                <table>
+                    <thead>
+                        <tr><th>Nombre</th><th>Descripción</th><th>Precio</th></tr>
+                    </thead>
+                    <tbody>
+                        {productos.map((producto)=>(
+                            //<tr><td>{producto.nombre}</td><td>{producto.descripcion}</td><td>{producto.precio}</td></tr>
+                            <ElementoProducto producto={producto}/>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+        );
+
+        const ElementoProducto=(props)=>{
+            const {producto}=props;
+            return (
+                <tr><td>{producto.nombre}</td><td>{producto.descripcion}</td><td>${producto.precio}</td></tr>
+            );
+        }
+        
+        const Form=()=>{
+        const submit=(event)=>{
+            event.preventDefault();
+            const form=event.target;
+            const nombre=form[0].value;
+            const descripcion=form[1].value;
+            const precio=form[2].value;
+            const producto={nombre, descripcion, precio};
+            productos.push(producto);
+            form.reset();
+            root.render(<ListaProductos/>);
+            }
+            return(
+                <form onSubmit={submit}>
+                    <input type="text" placeholder="Nombre"/>
+                    <input type="text" placeholder="Descripción"/>
+                    <input type="text" placeholder="Precio"/>
+                    <button type="submit">Agregar</button>
+                </form>
+            )
+        }
+        const root=ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<ListaProductos/>);
+  
+    </script>
+</body>
+</html>
+

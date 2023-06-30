@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 1</title>
+</head>
+<body>
+    
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById("container");
+        let div;
+        for(let i=0;i<5;i++) {
+            div= document.createElement("div");
+            
+            div.onclick= function() {
+                alert("Ésta es la caja #: " + i);
+            };
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>

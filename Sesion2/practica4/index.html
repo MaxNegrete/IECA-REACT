@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const getProfile = async () => {
+        //     try {
+        //         const  profile = await fetch("https://api.randomuser.me/?nat=US&results=1")
+        //         const json=await profile.json()
+        //         //console.log(json)
+        //     }catch(error){
+        //         console.log(error)
+        //     }
+        // }
+        //getProfile()
+
+        const getProfile = async () => {
+            try {
+                const profile = await fetch("https://api.randomuser.me/?nat=US&results=1")
+                const json = await profile.json()
+                return json
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+
+        const json = getProfile().then((res) => console.log(res))
+    
+    </script>
+</body>
+</html>
