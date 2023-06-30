@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 1 curso de React</title>
+</head>
+<body>
+    <br>
+    <div class="container  col-12">
+        <div class="card col-4">
+            <div class="card-header bg-info text-light">
+              Crear Receta
+            </div>
+            <div class="card-body">
+                <div id="creaReceta"></div>
+            </div>
+            <div class="card-footer bg-transparent text-right">
+                <div class="row" id="btnGuardaReceta"></div>
+            </div>
+        </div>
+        <br>
+        <div id="listadoRecetas" class="row"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+    <script>
+        const creaReceta=ReactDOM.createRoot(document.getElementById("creaReceta"));
+        const btnGuardaReceta=ReactDOM.createRoot(document.getElementById("btnGuardaReceta"));
+        const listadoRecetas=ReactDOM.createRoot(document.getElementById("listadoRecetas"));
+        var listaRecetas=[];
+        var listaIngredientes=[];
+
+        const agregraIngrediente=(event)=>{
+            event.preventDefault();
+            listaIngredientes.push(
+                React.createElement('li',{key: document.getElementById("txtIngrediente").value},document.getElementById("txtIngrediente").value)
+            )
+            const ul=React.createElement("ul",null,listaIngredientes);
+            document.getElementById("txtIngrediente").value='';
+            document.getElementById("txtIngrediente").focus();
+
+            creaReceta.render([contenedorReceta,ul]);
+        }
+        
+        const guardaReceta=(event)=>{
+            event.preventDefault();
+
+            listaRecetas.push(
+                React.createElement('div',{class:"col-4",style:{margin:"15px 0 0 0"}},[
+                    React.createElement('div',{class:"card"},[
+                        React.createElement('div',{class:"card-header bg-danger text-light h2"},document.getElementById("txtReceta").value),
+                        React.createElement('div',{class:"card-body"},[
+                            React.createElement('div',{class:"row"},[
+                                React.createElement('div',{class:"col-6"},[
+                                    React.createElement("h4",{class:"text-dark"},'Ingredientes:'),
+                                    React.createElement("ul",null,listaIngredientes)
+                                ]),
+                                React.createElement('div',{class:"col-6"},[
+                                    React.createElement("img",{src:document.getElementById("txtFoto").value,style:{width:"100%"}})
+                                ])
+                            ])
+                        ]),
+                        React.createElement('div',{class:"card-footer bg-transparent text-right"},'Tiempo preparación: '+document.getElementById("txtTiempo").value + ' Min')
+                    ])
+                ])
+            )
+            const divLista=React.createElement("div",{class:"row"},listaRecetas);
+            document.getElementById("txtReceta").value='';
+            document.getElementById("txtTiempo").value='';
+            document.getElementById("txtFoto").value='';
+            document.getElementById("txtReceta").focus();
+            listaIngredientes=[];
+            creaReceta.render(contenedorReceta);
+            listadoRecetas.render(divLista);
+        }
+
+        const contenedorReceta=React.createElement("div",{className:"contenedor-receta"},[
+            React.createElement('label',{type:"label",name:"lblReceta",for:"txtReceta"},'Receta:'),
+            React.createElement('input',{type:"text",name:"txtReceta",id:"txtReceta",class:"form-control"}),
+            React.createElement('label',{type:"label",name:"lblTiempo",for:"txtTiempo"},'Tiempo de preparación:'),
+            React.createElement('input',{type:"number",name:"txtTiempo",id:"txtTiempo",class:"form-control"}),
+            React.createElement('label',{type:"label",name:"lblFoto",for:"txtFoto"},'Foto:'),
+            React.createElement('input',{type:"text",name:"txtFoto",id:"txtFoto",class:"form-control"}),
+            React.createElement('br'),
+            React.createElement("div",{className:"contenedor-ingredientes row col-12"},[
+                React.createElement("div",{className:"col-8"},[
+                    React.createElement('label',{type:"label",name:"lbl",for:"txtIngrediente"},'Ingrediente:'),
+                    React.createElement('input',{type:"text",name:"ingrediente",id:'txtIngrediente',class:"form-control"})
+                ]),
+                React.createElement("div",{className:"col-4"},[
+                    React.createElement('button',{type:"button",class:"btn btn-primary",style:{margin:"25px 0 0 0"},onClick:agregraIngrediente},'Agregar')
+                ])
+            ])
+        ]);
+
+        const contenedorBoton=React.createElement('button',{type:"button",class:"btn btn-success",onClick:guardaReceta},'Guardar');
+
+        creaReceta.render(contenedorReceta);
+        btnGuardaReceta.render(contenedorBoton);
+    </script>
+</body>
+</html>
